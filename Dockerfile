@@ -24,9 +24,10 @@ RUN apk add --no-cache --virtual build-dependencies \
     radare2-cutter-dev
 
 COPY --from=build /cutter/build/Cutter /usr/bin/
-COPY --from=build /cutter/build/Cutter /workspace/
 
 USER xpra
+
+WORKDIR /workspace
 
 ENV COMMAND "Cutter"
 
