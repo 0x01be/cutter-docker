@@ -72,6 +72,10 @@ RUN git clone --depth 1 https://github.com/yossizap/angrcutter.git ${PLUGINS_DIR
 RUN pip3 install --prefix='/opt/jupyter' jupyter
 RUN git clone --depth 1 https://github.com/radareorg/cutter-jupyter.git ${PLUGINS_DIR}/python/cutter_jupyter
 
+RUN git clone --depth 1 https://github.com/yossizap/cutterref.git /cutterref
+RUN cp /cutterref/cutterref.py ${PLUGINS_DIR}/python/cutterref.py
+RUN cp -R /cutterref/archs/ ${PLUGINS_DIR}/python/archs/
+
 # Consumes too much memory to build
 #ENV RETDEC_REVISION master
 #RUN git clone --depth 1 --branch ${RETDEC_REVISION} https://github.com/avast/retdec-r2plugin.git /r2retdec
