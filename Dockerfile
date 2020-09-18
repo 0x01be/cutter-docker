@@ -24,7 +24,6 @@ RUN apk add --no-cache --virtual build-dependencies \
     radare2-cutter-dev
 
 COPY --from=build /opt/ /opt/
-COPY --from=build /cutter/build/Cutter /opt/cutter/bin/Cutter 
 
 USER xpra
 ENV PATH $PATH:/opt/cutter/bin/:/opt/angr/bin/:/opt/jupyter/bin/
