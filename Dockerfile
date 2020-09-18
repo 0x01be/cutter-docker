@@ -40,7 +40,7 @@ RUN git clone --recursive --branch ${CUTTER_REVISION} https://github.com/radareo
 
 WORKDIR /cutter
 
-RUN lrelease ./src/Cutter.pro
+RUN lrelease-qt5 ./src/Cutter.pro
 
 WORKDIR /cutter/build/
 
