@@ -40,9 +40,6 @@ RUN apk add --no-cache --virtual cutter-edge-build-dependencies \
 ENV CUTTER_REVISION master
 RUN git clone --recursive --branch ${CUTTER_REVISION} https://github.com/radareorg/cutter.git /cutter
 
-ENV R2GHIDRA_REVISION master
-RUN git clone --recursive --branch ${R2GHIDRA_REVISION} https://github.com/radareorg/r2ghidra.git /r2ghidra
-
 ENV RETDEC_REVISION master
 RUN git clone --depth 1 --branch ${RETDEC_REVISION} https://github.com/avast/retdec-r2plugin.git /r2retdec
 
@@ -53,15 +50,6 @@ RUN cmake \
     -DBUILD_CUTTER_PLUGIN=ON \
     ..
 RUN make install
-
-WORKDIR /r2ghidra/build
-
-RUN cmake \
-    -DCMAKE_INSTALL_PREFIX=/opt/r2ghidra \
-    -DBUILD_CUTTER_PLUGIN=ON \
-    -DCUTTER_SOURCE_DIR=/cutter \
-    ..
-#RUN make install
 
 WORKDIR /cutter
 
@@ -81,7 +69,7 @@ RUN cmake \
     -DCUTTER_ENABLE_CRASH_REPORTS=OFF \
     -DCUTTER_PACKAGE_DEPENDENCIES=OFF \
     ../src
-RUN cmake --build .
+RUN make install
 
 RUN r2pm init
 
