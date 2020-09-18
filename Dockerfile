@@ -8,6 +8,7 @@ RUN apk add --no-cache --virtual cutter-build-dependencies \
     linux-headers \
     pkgconfig \
     python3-dev \
+    py3-pip \
     qt5-qtbase \
     qt5-qtsvg-dev \
     qt5-qttools-dev \
@@ -23,7 +24,9 @@ RUN apk add --no-cache --virtual cutter-build-dependencies \
     pkgconfig \
     python3-dev \
     m4 \
-    zlib-dev
+    zlib-dev \
+    graphviz \
+    meson
 
 RUN apk add --no-cache --virtual cutter-edge-build-dependencies \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing  \
@@ -66,8 +69,14 @@ RUN lrelease ./src/Cutter.pro
 
 WORKDIR /cutter/build/
 
-RUN qmake ../src/Cutter.pro
-RUN make
+ENV BUILD_SYSTEM cmake
+RUN cmake \
+    -DCMAKE_INSTALL_PREFIX=/opt/cutter \
+    -DCUTTER_USE_BUNDLED_RADARE2=OFF \
+    -DCUTTER_ENABLE_PYTHON=ON \
+    -DCUTTER_ENABLE_PYTHON_BINDING=ON \
+    ../src
+RUN cmake --build .
 
 RUN r2pm init
 
