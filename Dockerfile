@@ -75,10 +75,17 @@ RUN cmake \
     -DCUTTER_USE_BUNDLED_RADARE2=OFF \
     -DCUTTER_ENABLE_PYTHON=ON \
     -DCUTTER_ENABLE_PYTHON_BINDING=ON \
+    -DCUTTER_ENABLE_KSYNTAXHIGHLIGHTING=ON \
+    -DCUTTER_ENABLE_GRAPHVIZ=ON \
+    -DCUTTER_EXTRA_PLUGIN_DIRS=/opt/cutter/plugins/ \
+    -DCUTTER_ENABLE_CRASH_REPORTS=OFF \
+    -DCUTTER_PACKAGE_DEPENDENCIES=OFF \
     ../src
-#RUN cmake --build .
+RUN cmake --build .
 
 RUN r2pm init
+RUN pip3 install --prefix='/opt/angr' angr 
+RUN pip3 install --prefix='/opt/angrdbg' angr 
 
 WORKDIR /
 
