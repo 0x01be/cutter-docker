@@ -27,6 +27,9 @@ COPY --from=build /cutter/build/Cutter /usr/bin/
 
 USER xpra
 
+RUN r2pm init
+RUN r2pm -i r2ghidra-dec
+
 WORKDIR /workspace
 
 ENV COMMAND "Cutter"
