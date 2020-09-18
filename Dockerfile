@@ -49,7 +49,7 @@ RUN cmake \
     -DCMAKE_INSTALL_PREFIX=/opt/r2retdec \
     -DBUILD_CUTTER_PLUGIN=ON \
     ..
-RUN make install
+#RUN make install
 
 WORKDIR /cutter
 
