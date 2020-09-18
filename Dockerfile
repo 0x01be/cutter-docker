@@ -67,17 +67,14 @@ RUN apk add --no-cache --virtual anglr-build-dependencies \
     z3-dev
 RUN pip3 install --prefix='/opt/angr' angr 
 RUN pip3 install --prefix='/opt/angr' angrdbg
-RUN git clone --depth 1 https://github.com/yossizap/angrcutter.git ${PLUGINS_DIR}/python/angrcutter
+RUN git clone --depth 1 https://github.com/yossizap/angrcutter.git /angrcutter
 
 RUN pip3 install --prefix='/opt/jupyter' jupyter
-RUN git clone --depth 1 https://github.com/radareorg/cutter-jupyter.git ${PLUGINS_DIR}/python/cutter_jupyter
+RUN git clone --depth 1 https://github.com/radareorg/cutter-jupyter.git /jupytercutter
 
 RUN git clone --depth 1 https://github.com/yossizap/cutterref.git /cutterref
-RUN cp /cutterref/cutterref.py ${PLUGINS_DIR}/python/cutterref.py
-RUN cp -R /cutterref/archs/ ${PLUGINS_DIR}/python/archs/
 
 RUN git clone --depth 1 https://github.com/JavierYuste/radare2-deep-graph.git /deep-graph
-RUN cp /deep-graph/cutter/*.py ${PLUGINS_DIR}/python/
 
 # Consumes too much memory to build
 #ENV RETDEC_REVISION master
