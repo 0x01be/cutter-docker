@@ -84,8 +84,10 @@ RUN cmake \
 RUN cmake --build .
 
 RUN r2pm init
+
 RUN pip3 install --prefix='/opt/angr' angr 
-RUN pip3 install --prefix='/opt/angrdbg' angr 
+RUN pip3 install --prefix='/opt/angrdbg' angrdbg
+RUN git clone --depth 1 https://github.com/yossizap/angrcutter.git /opt/cutter/plugins/angrcutter.git
 
 WORKDIR /
 
