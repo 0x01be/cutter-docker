@@ -67,7 +67,7 @@ RUN apk add --no-cache --virtual anglr-build-dependencies \
     z3-dev
 RUN pip3 install --prefix='/opt/angr' angr 
 RUN pip3 install --prefix='/opt/angr' angrdbg
-RUN git clone --depth 1 https://github.com/yossizap/angrcutter.git /opt/cutter/plugins/angrcutter.git ${PLUGINS_DIR}/python/angrcutter
+RUN git clone --depth 1 https://github.com/yossizap/angrcutter.git ${PLUGINS_DIR}/python/angrcutter
 
 RUN pip3 install --prefix='/opt/jupyter' jupyter
 RUN git clone --depth 1 https://github.com/radareorg/cutter-jupyter.git ${PLUGINS_DIR}/python/cutter_jupyter
