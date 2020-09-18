@@ -11,7 +11,8 @@ RUN apk add --no-cache --virtual cutter-runtime-dependencies \
     qt5-qtbase \
     qt5-qtsvg \
     shadow \
-    su-exec
+    su-exec \
+    graphviz
 
 RUN apk add --no-cache --virtual build-dependencies \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
