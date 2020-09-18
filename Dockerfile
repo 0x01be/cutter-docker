@@ -3,7 +3,16 @@ FROM alpine
 RUN apk add --no-cache --virtual cutter-build-dependencies \
     git \
     build-base \
+    autoconf \
+    automake \
+    libtool \
+    pkgconfig \
     cmake \
+    unzip \
+    wget \
+    bash \
+    bison \
+    flex \
     curl \
     linux-headers \
     pkgconfig \
@@ -12,21 +21,10 @@ RUN apk add --no-cache --virtual cutter-build-dependencies \
     qt5-qtbase \
     qt5-qtsvg-dev \
     qt5-qttools-dev \
-    unzip \
-    wget \
-    bash \
-    bison \
-    flex \
     openssl-dev \
-    autoconf \
-    automake \
-    libtool \
-    pkgconfig \
-    python3-dev \
     m4 \
     zlib-dev \
-    graphviz \
-    meson
+    graphviz
 
 RUN apk add --no-cache --virtual cutter-edge-build-dependencies \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing  \
@@ -39,17 +37,6 @@ RUN apk add --no-cache --virtual cutter-edge-build-dependencies \
 
 ENV CUTTER_REVISION master
 RUN git clone --recursive --branch ${CUTTER_REVISION} https://github.com/radareorg/cutter.git /cutter
-
-ENV RETDEC_REVISION master
-RUN git clone --depth 1 --branch ${RETDEC_REVISION} https://github.com/avast/retdec-r2plugin.git /r2retdec
-
-WORKDIR /r2retdec/build
-
-RUN cmake \
-    -DCMAKE_INSTALL_PREFIX=/opt/r2retdec \
-    -DBUILD_CUTTER_PLUGIN=ON \
-    ..
-#RUN make install
 
 WORKDIR /cutter
 
@@ -82,6 +69,16 @@ RUN git clone --depth 1 https://github.com/yossizap/angrcutter.git /opt/cutter/p
 
 RUN pip3 install --prefix='/opt/jupyter' jupyter
 RUN git clone --depth 1 https://github.com/radareorg/cutter-jupyter.git ${PLUGINS_DIR}/python/cutter_jupyter
+
+# Consumes too much memory to build
+#ENV RETDEC_REVISION master
+#RUN git clone --depth 1 --branch ${RETDEC_REVISION} https://github.com/avast/retdec-r2plugin.git /r2retdec
+#WORKDIR /r2retdec/build
+#RUN cmake \
+#    -DCMAKE_INSTALL_PREFIX=/opt/r2retdec \
+#    -DBUILD_CUTTER_PLUGIN=ON \
+#    ..
+#RUN make install
 
 WORKDIR /
 
