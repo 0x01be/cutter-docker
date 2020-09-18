@@ -58,6 +58,7 @@ RUN lrelease ./src/Cutter.pro
 WORKDIR /cutter/build/
 
 ENV BUILD_SYSTEM cmake
+ENV PLUGINS_DIR /opt/cutter/plugins
 RUN cmake \
     -DCMAKE_INSTALL_PREFIX=/opt/cutter \
     -DCUTTER_USE_BUNDLED_RADARE2=OFF \
@@ -65,7 +66,7 @@ RUN cmake \
     -DCUTTER_ENABLE_PYTHON_BINDING=ON \
     -DCUTTER_ENABLE_KSYNTAXHIGHLIGHTING=ON \
     -DCUTTER_ENABLE_GRAPHVIZ=ON \
-    -DCUTTER_EXTRA_PLUGIN_DIRS=/opt/cutter/plugins/ \
+    -DCUTTER_EXTRA_PLUGIN_DIRS=${PLUGINS_DIR} \
     -DCUTTER_ENABLE_CRASH_REPORTS=OFF \
     -DCUTTER_PACKAGE_DEPENDENCIES=OFF \
     ../src
@@ -73,9 +74,14 @@ RUN make install
 
 RUN r2pm init
 
+RUN mkdir -p /opt/cutter/plugins/python
+
 RUN pip3 install --prefix='/opt/angr' angr 
 RUN pip3 install --prefix='/opt/angrdbg' angrdbg
-RUN git clone --depth 1 https://github.com/yossizap/angrcutter.git /opt/cutter/plugins/angrcutter.git
+RUN git clone --depth 1 https://github.com/yossizap/angrcutter.git /opt/cutter/plugins/angrcutter.git ${PLUGINS_DIR}/python/angrcutter
+
+RUN pip3 install --prefix='/opt/jupyter' jupyter
+RUN git clone --depth 1 https://github.com/radareorg/cutter-jupyter.git ${PLUGINS_DIR}/python/cutter_jupyter
 
 WORKDIR /
 
