@@ -76,6 +76,15 @@ RUN git clone --depth 1 https://github.com/yossizap/cutterref.git /cutterref
 
 RUN git clone --depth 1 https://github.com/JavierYuste/radare2-deep-graph.git /deep-graph
 
+RUN git clone --recursive https://github.com/radareorg/r2ghidra.git /r2ghidra
+WORKDIR /r2ghidra/build
+RUN cmake \
+    -DCMAKE_INSTALL_PREFIX=/opt/r2ghidra \
+    -DBUILD_CUTTER_PLUGIN=ON \
+    -DCUTTER_SOURCE_DIR=/cutter \
+    ..
+#RUN make install
+
 # Consumes too much memory to build
 #ENV RETDEC_REVISION master
 #RUN git clone --depth 1 --branch ${RETDEC_REVISION} https://github.com/avast/retdec-r2plugin.git /r2retdec
