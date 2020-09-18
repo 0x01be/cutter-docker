@@ -26,6 +26,9 @@ RUN apk add --no-cache --virtual build-dependencies \
 
 COPY --from=build /opt/ /opt/
 
+RUN chown -R xpra:xpra /opt/cutter/plugins
+RUN chown -R xpra:xpra /home/xpra
+
 USER xpra
 ENV PATH $PATH:/opt/cutter/bin/:/opt/angr/bin/:/opt/jupyter/bin/
 
