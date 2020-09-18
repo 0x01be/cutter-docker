@@ -24,7 +24,7 @@ RUN apk add --no-cache --virtual build-dependencies \
     radare2-dbg \
     radare2-cutter-dev
 
-COPY --from=build /opt/ /opt/
+COPY --from=build /opt/cutter/ /opt/cutter/
 
 RUN chown -R xpra:xpra /opt/cutter/plugins
 RUN chown -R xpra:xpra /home/xpra
