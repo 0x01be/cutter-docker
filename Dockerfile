@@ -23,12 +23,10 @@ RUN apk add --no-cache --virtual build-dependencies \
     radare2-dbg \
     radare2-cutter-dev
 
-COPY --from=build /cutter/build/Cutter /usr/bin/
+COPY --from=build /opt/ /opt/
 
 USER xpra
-
-RUN r2pm init
-RUN r2pm -i r2ghidra-dec
+ENV PATH $PATH:/opt/cutter/bin/
 
 WORKDIR /workspace
 
