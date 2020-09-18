@@ -31,6 +31,7 @@ RUN chown -R xpra:xpra /home/xpra
 
 USER xpra
 ENV PATH $PATH:/opt/cutter/bin/:/opt/angr/bin/:/opt/jupyter/bin/
+ENV PYTHONPATH /opt/jupyter/lib/python3.8/site-packages:/opt/angr/lib/python3.8/site-packages:/usr/lib/python3.8/site-packages
 
 WORKDIR /workspace
 
