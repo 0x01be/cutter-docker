@@ -61,6 +61,8 @@ RUN make install
 
 RUN mkdir -p /opt/cutter/plugins/python
 
+RUN apk add --no-cache --virtual anglr-build-dependencies \
+   apk add py3-wheel
 RUN pip3 install --prefix='/opt/angr' angr 
 RUN pip3 install --prefix='/opt/angrdbg' angrdbg
 RUN git clone --depth 1 https://github.com/yossizap/angrcutter.git /opt/cutter/plugins/angrcutter.git ${PLUGINS_DIR}/python/angrcutter
