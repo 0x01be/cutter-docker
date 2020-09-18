@@ -59,8 +59,6 @@ RUN cmake \
     ../src
 RUN make install
 
-RUN r2pm init
-
 RUN mkdir -p /opt/cutter/plugins/python
 
 RUN pip3 install --prefix='/opt/angr' angr 
