@@ -17,7 +17,7 @@ RUN apk add --no-cache --virtual cutter-build-dependencies \
     bash \
     bison \
     flex \
-    libressl-dev \
+    openssl-dev \
     autoconf \
     automake \
     libtool \
@@ -76,7 +76,9 @@ RUN cmake \
     -DCUTTER_ENABLE_PYTHON=ON \
     -DCUTTER_ENABLE_PYTHON_BINDING=ON \
     ../src
-RUN cmake --build .
+#RUN cmake --build .
 
 RUN r2pm init
+
+WORKDIR /
 
