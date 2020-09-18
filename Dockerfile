@@ -33,7 +33,10 @@ RUN apk add --no-cache --virtual cutter-edge-build-dependencies \
     radare2-dbg \
     radare2-dev \
     capstone-dev \
-    libzip-dev
+    libzip-dev \
+    libshiboken2-dev \
+    py3-shiboken2 \
+    shiboken2
 
 ENV CUTTER_REVISION master
 RUN git clone --recursive --branch ${CUTTER_REVISION} https://github.com/radareorg/cutter.git /cutter
