@@ -76,6 +76,9 @@ RUN git clone --depth 1 https://github.com/yossizap/cutterref.git /cutterref
 RUN cp /cutterref/cutterref.py ${PLUGINS_DIR}/python/cutterref.py
 RUN cp -R /cutterref/archs/ ${PLUGINS_DIR}/python/archs/
 
+RUN git clone --depth 1 https://github.com/JavierYuste/radare2-deep-graph.git /deep-graph
+RUN cp /deep-graph/cutter/*.py ${PLUGINS_DIR}/python/
+
 # Consumes too much memory to build
 #ENV RETDEC_REVISION master
 #RUN git clone --depth 1 --branch ${RETDEC_REVISION} https://github.com/avast/retdec-r2plugin.git /r2retdec
