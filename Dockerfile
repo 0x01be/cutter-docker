@@ -51,7 +51,9 @@ RUN apk add --no-cache --virtual cutter-edge-build-dependencies \
     qt5-qtdeclarative-dev \
     qt5-qt3d-dev \
     qt5-qtwebsockets-dev \
-    qt5-qtwebengine
+    qt5-qtwebengine-dev \
+    qt5-qtdatavis3d-dev \
+    samurai
 
 ENV CUTTER_REVISION master
 RUN git clone --recursive --branch ${CUTTER_REVISION} https://github.com/radareorg/cutter.git /cutter
@@ -60,7 +62,7 @@ WORKDIR /cutter
 
 RUN lrelease-qt5 ./src/Cutter.pro
 
-ENV PYSIDE_REVISION 5.14.2
+ENV PYSIDE_REVISION 5.15.1
 RUN git clone --depth 1 --branch ${PYSIDE_REVISION} https://code.qt.io/pyside/pyside-setup /pyside
 WORKDIR /pyside
 RUN python3 setup.py install --qmake=/usr/bin/qmake-qt5
