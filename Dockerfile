@@ -17,14 +17,23 @@ RUN apk add --no-cache --virtual cutter-build-dependencies \
     linux-headers \
     pkgconfig \
     python3-dev \
-    py3-pip \
     qt5-qtbase \
     qt5-qtsvg-dev \
     qt5-qttools-dev \
+    qt5-qtxmlpatterns-dev \
+    qt5-qtmultimedia-dev \
+    qt5-qttools-static \
     openssl-dev \
     m4 \
     zlib-dev \
-    graphviz-dev
+    graphviz-dev \
+    py3-pip \
+    py3-wheel \
+    py3-numpy-dev \
+    llvm-dev \
+    clang-dev \
+    libxml2-dev \
+    libxslt-dev
 
 RUN apk add --no-cache --virtual cutter-edge-build-dependencies \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing  \
@@ -36,6 +45,7 @@ RUN apk add --no-cache --virtual cutter-edge-build-dependencies \
     libzip-dev \
     libshiboken2-dev \
     py3-shiboken2 \
+    py3-udev \
     shiboken2
 
 ENV CUTTER_REVISION master
@@ -45,8 +55,12 @@ WORKDIR /cutter
 
 RUN lrelease-qt5 ./src/Cutter.pro
 
-WORKDIR /cutter/build/
+ENV PYSIDE_REVISION 5.14.2
+RUN git clone --depth 1 --branch ${PYSIDE_REVISION} https://code.qt.io/pyside/pyside-setup /pyside
+WORKDIR /pyside
+RUN python3 setup.py install --qmake=/usr/bin/qmake-qt5
 
+WORKDIR /cutter/build/
 ENV BUILD_SYSTEM cmake
 ENV PLUGINS_DIR /opt/cutter/plugins
 RUN cmake \
@@ -65,7 +79,6 @@ RUN make install
 RUN mkdir -p /opt/cutter/plugins/python
 
 RUN apk add --no-cache --virtual anglr-build-dependencies \
-    py3-wheel \
     py3-z3 \
     z3-dev
 RUN pip3 install --prefix='/opt/angr' angr 
