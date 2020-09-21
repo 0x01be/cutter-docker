@@ -7,9 +7,6 @@ RUN apk add --no-cache --virtual cutter-runtime-dependencies \
     bash \
     libuuid \
     make \
-    python3 \
-    qt5-qtbase \
-    qt5-qtsvg \
     shadow \
     su-exec \
     graphviz
@@ -22,8 +19,11 @@ RUN apk add --no-cache --virtual build-dependencies \
     radare2-dev \
     radare2-libs \
     radare2-dbg \
-    radare2-cutter-dev
-
+    radare2-cutter-dev \
+    python3 \
+    qt5-qtbase \
+    qt5-qtsvg \
+ 
 COPY --from=build /opt/cutter/ /opt/cutter/
 
 RUN chown -R xpra:xpra /opt/cutter/plugins
