@@ -39,6 +39,7 @@ RUN apk add --no-cache --virtual cutter-edge-build-dependencies \
     py3-udev \
     py3-pip \
     py3-wheel \
+    py3-qt5 \
     py3-numpy-dev \ 
     qt5-qtbase-dev \
     qt5-qtsvg-dev \
