@@ -1,9 +1,6 @@
 FROM 0x01be/ninja
 
-RUN apk add --no-cache --virtual cutter-edge-build-dependencies \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing  \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/community  \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
+RUN apk add --no-cache --virtual cutter-build-dependencies \
     git \
     build-base \
     autoconf \
@@ -17,8 +14,12 @@ RUN apk add --no-cache --virtual cutter-edge-build-dependencies \
     bison \
     flex \
     curl \
+
+RUN apk add --no-cache --virtual cutter-edge-build-dependencies \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing  \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/community  \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
     linux-headers \
-    pkgconfig \
     openssl-dev \
     m4 \
     zlib-dev \
