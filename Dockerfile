@@ -32,10 +32,7 @@ RUN apk add --no-cache --virtual cutter-edge-build-dependencies \
     radare2-dev \
     capstone-dev \
     libzip-dev \
-    libshiboken2-dev \
-    shiboken2 \
     python3-dev \
-    py3-shiboken2 \
     py3-udev \
     py3-pip \
     py3-wheel \
@@ -73,9 +70,13 @@ WORKDIR /cutter
 RUN lrelease-qt5 ./src/Cutter.pro
 
 ENV PYSIDE_REVISION 5.15.1
-RUN git clone --recursive --branch ${PYSIDE_REVISION} https://code.qt.io/pyside/pyside-setup /pyside
-WORKDIR /pyside
-RUN python3 setup.py install --qmake=/usr/bin/qmake-qt5
+RUN git clone --recursive --branch ${PYSIDE_REVISION} https://code.qt.io/pyside/pyside-setup.git /pyside
+RUN git clone --recursive --branch dev https://code.qt.io/cgit/pyside/shiboken.git /shiboken
+#WORKDIR /shiboken/build
+#RUN cmake ..
+#RUN make install
+#WORKDIR /pyside
+#RUN python3 setup.py install --qmake=/usr/bin/qmake-qt5
 
 WORKDIR /cutter/build/
 ENV BUILD_SYSTEM cmake
