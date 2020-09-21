@@ -13,7 +13,7 @@ RUN apk add --no-cache --virtual cutter-build-dependencies \
     bash \
     bison \
     flex \
-    curl \
+    curl
 
 RUN apk add --no-cache --virtual cutter-edge-build-dependencies \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing  \
