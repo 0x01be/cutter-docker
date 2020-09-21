@@ -70,8 +70,9 @@ RUN lrelease-qt5 ./src/Cutter.pro
 
 ENV PYSIDE_REVISION 5.15.1
 RUN git clone --recursive --branch ${PYSIDE_REVISION} https://code.qt.io/pyside/pyside-setup.git /pyside
-WORKDIR /pyside
-RUN python3 setup.py install --qmake=/usr/bin/qmake-qt5
+WORKDIR /pyside/build
+RUN cmake -DCMAKE_BUILD_TYPE=Release ..
+RUN make install
 
 WORKDIR /cutter/build/
 ENV BUILD_SYSTEM cmake
