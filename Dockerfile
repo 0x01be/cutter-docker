@@ -70,12 +70,8 @@ RUN lrelease-qt5 ./src/Cutter.pro
 
 ENV PYSIDE_REVISION 5.15.1
 RUN git clone --recursive --branch ${PYSIDE_REVISION} https://code.qt.io/pyside/pyside-setup.git /pyside
-RUN git clone --recursive --branch dev https://code.qt.io/cgit/pyside/shiboken.git /shiboken
-#WORKDIR /shiboken/build
-#RUN cmake ..
-#RUN make install
-#WORKDIR /pyside
-#RUN python3 setup.py install --qmake=/usr/bin/qmake-qt5
+WORKDIR /pyside
+RUN python3 setup.py install --qmake=/usr/bin/qmake-qt5
 
 WORKDIR /cutter/build/
 ENV BUILD_SYSTEM cmake
