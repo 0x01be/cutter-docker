@@ -72,7 +72,7 @@ ENV PYSIDE_REVISION 5.15.1
 RUN git clone --recursive --branch ${PYSIDE_REVISION} https://code.qt.io/pyside/pyside-setup.git /pyside
 WORKDIR /pyside/build
 RUN cmake -DCMAKE_BUILD_TYPE=Release ..
-RUN make install
+#RUN make install
 
 WORKDIR /cutter/build/
 ENV BUILD_SYSTEM cmake
