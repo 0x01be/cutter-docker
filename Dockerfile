@@ -132,5 +132,6 @@ RUN cmake \
 #    ..
 #RUN make install
 
+COPY Dockerfile /Dockerfile
 WORKDIR /
 
