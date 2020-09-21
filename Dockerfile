@@ -23,6 +23,12 @@ RUN apk add --no-cache --virtual cutter-build-dependencies \
     qt5-qtxmlpatterns-dev \
     qt5-qtmultimedia-dev \
     qt5-qttools-static \
+    qt5-qtx11extras-dev \
+    qt5-qtlocation-dev \
+    qt5-qtdeclarative-dev \
+    qt5-qt3d-dev \
+    qt5-qtwebsockets-dev \
+    qt5-qtwebengine-dev \
     openssl-dev \
     m4 \
     zlib-dev \
