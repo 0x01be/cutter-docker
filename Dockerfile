@@ -55,6 +55,8 @@ RUN apk add --no-cache --virtual cutter-edge-build-dependencies \
     qt5-qtdatavis3d-dev \
     qt5-qtsensors-dev \
     qt5-qtscript-dev \
+    qt5-qtscxml-dev \
+    qt5-qtremoteobjects-dev \
     samurai
 
 ENV CUTTER_REVISION master
