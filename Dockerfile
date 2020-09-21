@@ -1,6 +1,9 @@
-FROM alpine
+FROM 0x01be/ninja
 
-RUN apk add --no-cache --virtual cutter-build-dependencies \
+RUN apk add --no-cache --virtual cutter-edge-build-dependencies \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing  \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/community  \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
     git \
     build-base \
     autoconf \
@@ -16,8 +19,27 @@ RUN apk add --no-cache --virtual cutter-build-dependencies \
     curl \
     linux-headers \
     pkgconfig \
+    openssl-dev \
+    m4 \
+    zlib-dev \
+    graphviz-dev \
+    llvm-dev \
+    clang-dev \
+    libxml2-dev \
+    libxslt-dev \
+    radare2-dbg \
+    radare2-dev \
+    capstone-dev \
+    libzip-dev \
+    libshiboken2-dev \
+    shiboken2 \
     python3-dev \
-    qt5-qtbase \
+    py3-shiboken2 \
+    py3-udev \
+    py3-pip \
+    py3-wheel \
+    py3-numpy-dev \ 
+    qt5-qtbase-dev \
     qt5-qtsvg-dev \
     qt5-qttools-dev \
     qt5-qtxmlpatterns-dev \
@@ -28,31 +50,7 @@ RUN apk add --no-cache --virtual cutter-build-dependencies \
     qt5-qtdeclarative-dev \
     qt5-qt3d-dev \
     qt5-qtwebsockets-dev \
-    qt5-qtwebengine-dev \
-    openssl-dev \
-    m4 \
-    zlib-dev \
-    graphviz-dev \
-    py3-pip \
-    py3-wheel \
-    py3-numpy-dev \
-    llvm-dev \
-    clang-dev \
-    libxml2-dev \
-    libxslt-dev
-
-RUN apk add --no-cache --virtual cutter-edge-build-dependencies \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing  \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/community  \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
-    radare2-dbg \
-    radare2-dev \
-    capstone-dev \
-    libzip-dev \
-    libshiboken2-dev \
-    py3-shiboken2 \
-    py3-udev \
-    shiboken2
+    qt5-qtwebengine
 
 ENV CUTTER_REVISION master
 RUN git clone --recursive --branch ${CUTTER_REVISION} https://github.com/radareorg/cutter.git /cutter
@@ -85,6 +83,9 @@ RUN make install
 RUN mkdir -p /opt/cutter/plugins/python
 
 RUN apk add --no-cache --virtual anglr-build-dependencies \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing  \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/community  \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
     py3-z3 \
     z3-dev
 RUN pip3 install --prefix='/opt/angr' angr 
