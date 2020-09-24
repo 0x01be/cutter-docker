@@ -22,7 +22,7 @@ RUN apk add --no-cache --virtual build-dependencies \
     radare2-cutter-dev \
     python3 \
     qt5-qtbase \
-    qt5-qtsvg \
+    qt5-qtsvg
  
 COPY --from=build /opt/cutter/ /opt/cutter/
 
