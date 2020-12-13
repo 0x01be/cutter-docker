@@ -4,7 +4,7 @@ WORKDIR /cutter
 ENV REVISION=master \
     PYSIDE_VERSION=5.15.1 \
     BUILD_SYSTEM=cmake \
-    PLUGINS_DIR=/opt/cutter/plugins \
+    PLUGINS_DIR=/opt/cutter/plugins
 
 RUN apk add --no-cache --virtual cutter-build-dependencies \
     git \
