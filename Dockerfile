@@ -2,16 +2,16 @@ FROM 0x01be/cutter:build as build
 
 FROM 0x01be/xpra
 
-USER root
+COPY --from=build /opt/cutter/ /opt/cutter/
+
 RUN apk add --no-cache --virtual cutter-runtime-dependencies \
     bash \
     libuuid \
     make \
     shadow \
     su-exec \
-    graphviz
-
-RUN apk add --no-cache --virtual build-dependencies \
+    graphviz &&\
+    apk add --no-cache --virtual build-dependencies \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
@@ -22,18 +22,12 @@ RUN apk add --no-cache --virtual build-dependencies \
     radare2-cutter-dev \
     python3 \
     qt5-qtbase \
-    qt5-qtsvg
- 
-COPY --from=build /opt/cutter/ /opt/cutter/
+    qt5-qtsvg &&\
+    chown -R ${USER}:${USER} /opt/cutter/plugins &&\
+    chown -R ${USER}:${USER} ${WORKSPACE}
 
-RUN chown -R xpra:xpra /opt/cutter/plugins
-RUN chown -R xpra:xpra /home/xpra
-
-USER xpra
-ENV PATH $PATH:/opt/cutter/bin/:/opt/angr/bin/:/opt/jupyter/bin/
-ENV PYTHONPATH /opt/jupyter/lib/python3.8/site-packages:/opt/angr/lib/python3.8/site-packages:/usr/lib/python3.8/site-packages
-
-WORKDIR /workspace
-
-ENV COMMAND "Cutter"
+USER ${USER}
+ENV PATH=${PATH}:/opt/cutter/bin/:/opt/angr/bin/:/opt/jupyter/bin/ \
+    PYTHONPATH=/opt/jupyter/lib/python3.8/site-packages:/opt/angr/lib/python3.8/site-packages:/usr/lib/python3.8/site-packages \
+    COMMAND=Cutter
 
